@@ -119,7 +119,7 @@
     }
     .footer {
         text-align: center;
-        margin-top: 40%;
+        margin-top: 20%;
     }
     .footer p {
         margin-bottom: 5px;
