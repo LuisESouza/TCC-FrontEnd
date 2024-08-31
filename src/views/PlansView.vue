@@ -71,7 +71,4 @@ header{
     text-align: center;
     border-radius: 10px;
 }
-
-.exit{
-}
 </style>

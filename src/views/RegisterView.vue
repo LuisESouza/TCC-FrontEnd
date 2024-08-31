@@ -126,7 +126,7 @@
     }
     .footer {
         text-align: center;
-        margin-top: 35%;
+        margin-top: 25%;
     }
     .footer p {
         margin-bottom: 5px;
@@ -140,5 +140,11 @@
         background-color: transparent;
         color: #00875F;
         border: 1px solid #00875F;
+    }
+
+    @media (max-height: 740px) {
+        .footer {
+            margin-top: 5%;
+        }
     }
 </style>
