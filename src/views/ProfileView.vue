@@ -63,17 +63,17 @@ onMounted(() => {
     <div class="container">
         <NavInfo />
         <main class="content">
-            <div class="avatar mt-5">
+            <div class="avatar mt-1">
                 <div class="img-container">
                     <img src="https://www.w3schools.com/w3images/avatar2.png" alt="">
                 </div>
             </div>
 
             <form @submit.prevent="toggleEdit">
-                <div class="container mt-5">
+                <div class="container mt-3">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="input-group mb-2 d-flex gap-2">
+                            <div class="d-flex gap-2 mb-2">
                                 <div class="flex-fill">
                                     <span>Nome:</span>
                                     <Inputs class="form-control" v-model="formData.nome_completo" disabled="true"/>
@@ -106,7 +106,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <div class="button-group mt-4">
+                <div class="button-group">
                     <router-link to="/profile/plans">
                         <Buttons titleButton="Gerenciar assinatura" /> 
                     </router-link>
@@ -169,4 +169,27 @@ onMounted(() => {
         font-size: 14px;
     }
 
+    .button-group{
+        margin-top: 5rem;
+    }
+
+    @media (max-height: 740px) {
+        .img-container {
+            width: 120px;
+            height: 120px;
+        }
+
+        .button-group button {
+            padding: 8px;
+            font-size: 14px;    
+        }
+
+        .button-group{
+            margin-top: 2rem;
+        }
+
+        .form-control{
+            height: 45px;
+        }
+    }
 </style>
