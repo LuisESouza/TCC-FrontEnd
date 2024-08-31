@@ -1,0 +1,40 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --vt-c-black: #121214;
+  --vt-c-black-soft: #222222;
+  --vt-c-black-mute: #282828;
+
+  --vt-c-texts: #E1E1E6;
+
+  --vt-c-divider-light-1: #00875F;
+  --vt-c-divider-light-2: #C4C4CC;
+
+  --vt-c-text-light-1: var(--vt-c-texts);
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--vt-c-black);
+  --color-background-soft: var(--vt-c-black-soft);
+  --color-background-mute: var(--vt-c-black-mute);
+
+  --color-border: var(--vt-c-divider-light-1);
+
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+
+  --section-gap: 160px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  color: var(--color-text) !important;
+  background: var(--color-background) !important;
+  font-family:Roboto;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

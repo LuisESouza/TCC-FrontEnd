@@ -1,0 +1,22 @@
+@import './base.css';
+
+#app {
+  max-width: 1280px;
+  min-height: 99vh;
+  margin: 0 auto;
+  padding: 0rem;
+  font-weight: normal;
+  font-family: Roboto;
+}
+.title-header {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.title-header h1{
+  margin-top: 4px;  
+}
+.imgPeso {
+  height: 40px;
+  display: block;
+}
