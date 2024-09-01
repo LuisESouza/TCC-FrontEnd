@@ -40,7 +40,8 @@ const routes = [
   {
     path: '/profile/plans',
     name: 'Planos',
-    component: () => import('../views/PlansView.vue')
+    component: () => import('../views/PlansView.vue'),
+    meta: { requiresAuth: true }
   }
 ];
 

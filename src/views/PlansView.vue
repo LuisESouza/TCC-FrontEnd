@@ -23,17 +23,15 @@ const loadPlans = async () => {
 onMounted(() => {
     loadPlans();
 });
-
-const preco = ref('20');
 </script>
 
 <template>
     <div class="container">
         <header>
-            <router-link to="/profile" class="exit"><i class="fas fa-x" style="color: white;"></i></router-link>
+            <router-link to="/profile" class="exit"><i class="fas fa-chevron-left" style="color: white;"></i></router-link>
         </header>
 
-        <main class="content flex">
+        <main class="content">
             <div  v-for="(plano, index) in planos" :key="index" class="plans-container">
                 <div class="plans-header">
                     <h1>{{ plano.nome }}</h1>
@@ -51,23 +49,22 @@ const preco = ref('20');
 <style scoped>
 
 header{
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  background-color: #202024;
   padding: 10px;
-  border-radius: 0 0 8px 8px;
   color: #fff;
   display: flex;
   align-items: center;
-  z-index: 1000;
-  justify-content: space-between;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-top: 2rem;
 }
 
 .plans-container {
     background-color: #202024;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     border-radius: 10px;
 }
