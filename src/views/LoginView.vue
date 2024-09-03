@@ -13,13 +13,14 @@
     });
     const router = useRouter();
     const Submit = async () => {
-        // const apiUrl = "http://localhost:3000/api/dicefit/login";
+        //const apiUrl = "http://localhost:3000/api/dicefit/login";
         const apiUrl = "https://tcc-backend-smx9.onrender.com/api/dicefit/login";
         const api = new apiService();
         try {
             const response = await api.apiPost(apiUrl, formData.value);
             authStore.setToken(response.token);
-            router.push('/home');
+            alert('Usuario logado');
+            // router.push('/home');
         } catch (error) {
             alert("Erro Login: " + error.message);
         }
@@ -43,7 +44,7 @@
                 <div class="form-header">
                     <p>Acesse sua conta</p>
                 </div>
-        
+
                 <div class="input-container">
                     <Inputs placeholder="E-mail" typeInput="email" v-model="formData.email"/>
                     <Inputs placeholder="Senha" typeInput="password" v-model="formData.senha"/>

@@ -24,7 +24,8 @@
         const response = await api.apiPost(apiUrl, formData.value);      
         if (response && response.token) {
             authStore.setToken(response.token);
-            router.push('/home');
+            alert("Usuario REGISTRADO")
+            // router.push('/home');
         } else {
             alert("Erro: Nenhum token foi retornado.");
         }

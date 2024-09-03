@@ -9,7 +9,7 @@ const planos = ref([]);
 
 const loadPlans = async () => {
     try {
-        // const url = "http://localhost:3000/api/dicefit/planos";
+        //const url = "http://localhost:3000/api/dicefit/planos";
         const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/planos";
         const response = await api.apiGet(url);
         console.log("Response:", response); 

@@ -46,7 +46,7 @@ const submit = async () => {
         await api.apiPut(url, {
             altura: formData.value.altura,
             peso: formData.value.peso,
-            objetivo: formData.value.objetivo
+            objetivo: formData.value.objetivo,
         });
         isEditing.value = false;
     } catch (error) {
@@ -63,10 +63,8 @@ onMounted(() => {
     <div class="container">
         <NavInfo />
         <main class="content">
-            <div class="avatar mt-1">
-                <div class="img-container">
-                    <img src="https://www.w3schools.com/w3images/avatar2.png" alt="">
-                </div>
+            <div class="avatar-container mt-1">
+                <b-avatar :src="formData.avatar || 'https://placekitten.com/300/300'" size="10rem"></b-avatar>
             </div>
 
             <form @submit.prevent="toggleEdit">
@@ -119,23 +117,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
-    .img-container {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
+    .avatar-container{
+        text-align: center;
     }
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
     .button-group {
         display: flex;
         justify-content: space-between;
@@ -174,11 +158,6 @@ onMounted(() => {
     }
 
     @media (max-height: 740px) {
-        .img-container {
-            width: 120px;
-            height: 120px;
-        }
-
         .button-group button {
             padding: 8px;
             font-size: 14px;    
