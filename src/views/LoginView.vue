@@ -19,8 +19,8 @@
         try {
             const response = await api.apiPost(apiUrl, formData.value);
             authStore.setToken(response.token);
-            alert('Usuario logado');
-            // router.push('/home');
+            // alert('Usuario logado');
+            router.push('/home');
         } catch (error) {
             alert("Erro Login: " + error.message);
         }
