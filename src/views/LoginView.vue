@@ -55,6 +55,7 @@
   
             <div class="footer">
                 <p>Ainda não tem acesso?</p>
+                <RouterLink to="forgot-password" class="forgot-pass">Esqueci a senha</RouterLink>
                 <RouterLink to="cadastro">    
                     <Buttons class="btnCreate" titleButton="Criar conta"/>
                 </RouterLink>
@@ -129,5 +130,8 @@
         background-color: transparent;
         color: #00875F;
         border: 1px solid #00875F;
+    }
+    .forgot-pass{
+        color: #00875F;
     }
 </style>

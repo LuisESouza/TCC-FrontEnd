@@ -20,7 +20,6 @@ const isEditing = ref(false);
 
 const loadProfile = async () => {
     try {
-        // const url = "http://localhost:3000/api/dicefit/perfil";
         const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil";
         const api = new apiService();
         const response = await api.apiGet(url);
@@ -40,7 +39,6 @@ const toggleEdit = () => {
 
 const submit = async () => {
     try {
-        // const url = "http://localhost:3000/api/dicefit/perfil/update";
         const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil/update";
         const api = new apiService();
         await api.apiPut(url, {
@@ -63,10 +61,7 @@ onMounted(() => {
     <div class="container">
         <NavInfo />
         <main class="content">
-            <div class="avatar-container mt-1">
-                <b-avatar :src="formData.avatar || 'https://placekitten.com/300/300'" size="10rem"></b-avatar>
-            </div>
-
+            <!-- Avatar removido para simplificar -->
             <form @submit.prevent="toggleEdit">
                 <div class="container mt-3">
                     <div class="row">
@@ -98,8 +93,17 @@ onMounted(() => {
                                     <Inputs class="form-control" placeholder="Peso" :value="formatInstance.formatPeso(formData.peso)" v-model="formData.peso" :disabled="!isEditing"/>
                                 </div>
                             </div>
-                            <div class="form-group mb-2">
-                                <Inputs class="form-control" placeholder="Objetivo" v-model="formData.objetivo" :disabled="!isEditing"/>
+                            <div class="d-flex gap-2 mb-2">
+                                <div class="flex-fill">
+                                    <b-dropdown id="dropdown-1" text="Objetivo" variant="outline-secondary" :disabled="!isEditing" style="height: 56px;">
+                                        <b-dropdown-item @click="formData.objetivo = 'Ganhar massa'">Ganhar massa</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.objetivo = 'Perder peso'">Perder peso</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.objetivo = 'Manter o peso'">Manter o peso</b-dropdown-item>
+                                    </b-dropdown>
+                                </div>
+                                <div class="flex-fill">
+                                    <Inputs class="form-control" placeholder="Objetivo" v-model="formData.objetivo" disabled="true"/>
+                                </div>
                             </div>
                         </div>
                     </div>

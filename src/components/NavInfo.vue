@@ -9,7 +9,7 @@ const plano = ref('free');
 <template>
   <div class="container">
     <header class="header">
-      <div v-show="route.name !== 'Perfil'" class="plan-container"> 
+      <div v-show="route.name !== 'Perfil' && route.name !== 'Recuperar Senha'" class="plan-container"> 
           <p class="plan">{{ plano }}</p>
       </div>
 

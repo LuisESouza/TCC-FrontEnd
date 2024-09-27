@@ -42,6 +42,17 @@ const routes = [
     name: 'Planos',
     component: () => import('../views/PlansView.vue'),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/forgot-password',
+    name: 'Recuperar Senha',
+    component: () => import('../views/ForgotPassword.vue')
+  },
+  {
+    path: '/reset-password',
+    name: 'Trocar Senha',
+    component: () => import('../views/ResetPassword.vue'),
+    meta: { requiresAuth: true }
   }
 ];
 

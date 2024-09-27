@@ -1,5 +1,5 @@
 <script setup>
-    const props = defineProps(["titleInput", "idInput", "typeInput"]);
+    const props = defineProps(["titleInput", "idInput", "typeInput", "Deisabled"]);
 
 </script>
 
