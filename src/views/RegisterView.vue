@@ -16,7 +16,7 @@
         senha: '',
     })
     const Submit = async () => {
-    // const apiUrl = "http://localhost:3000/api/dicefit/registro";
+    //const apiUrl = "http://localhost:3000/api/dicefit/registro";
     const apiUrl = "https://tcc-backend-smx9.onrender.com/api/dicefit/registro";
     
     const api = new apiService();

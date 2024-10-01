@@ -20,6 +20,7 @@ const isEditing = ref(false);
 
 const loadProfile = async () => {
     try {
+        //const url = "http://localhost:3000/api/dicefit/perfil"
         const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil";
         const api = new apiService();
         const response = await api.apiGet(url);
@@ -39,6 +40,7 @@ const toggleEdit = () => {
 
 const submit = async () => {
     try {
+        //const url = "http://localhost:3000/api/dicefit/perfil/update"
         const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil/update";
         const api = new apiService();
         await api.apiPut(url, {
@@ -104,6 +106,50 @@ onMounted(() => {
                                 <div class="flex-fill">
                                     <Inputs class="form-control" placeholder="Objetivo" v-model="formData.objetivo" disabled="true"/>
                                 </div>
+                            </div>
+
+                            
+                            <div class="d-flex gap-2 mb-2">
+                                <!-- Dropdown para o dia inicial -->
+                                <div class="flex-fill mt-1">
+                                    <span style="margin-right: 240px;">Dias de treino:</span>
+                                    <b-dropdown 
+                                        id="dropdown-1" 
+                                        :text="formData.diaTreinoInicio || 'Dia inicial'" 
+                                        variant="outline-secondary" 
+                                        :disabled="!isEditing" 
+                                        style="height: 56px;">
+                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Segunda'">Segunda</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Terca'">Terça</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Quarta'">Quarta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Quinta'">Quinta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Sexta'">Sexta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Sabado'">Sábado</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Domingo'">Domingo</b-dropdown-item>
+                                    </b-dropdown>
+
+                                    <span class="m-3">Até</span>
+                                    <!-- Dropdown para o dia final -->
+                                    <b-dropdown 
+                                        id="dropdown-2" 
+                                        :text="formData.diaTreinoFinal || 'Dia final'" 
+                                        variant="outline-secondary" 
+                                        :disabled="!isEditing" 
+                                        style="height: 56px;">
+                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Segunda'">Segunda</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Terca'">Terça</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Quarta'">Quarta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Quinta'">Quinta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Sexta'">Sexta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Sabado'">Sábado</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Domingo'">Domingo</b-dropdown-item>
+                                    </b-dropdown>
+                                </div>
+                            </div>
+
+                            <!-- Horarios -->
+                            <div>
+
                             </div>
                         </div>
                     </div>

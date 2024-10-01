@@ -32,7 +32,7 @@ class apiService {
     async apiPut(url, data) {
         try {
           const response = await axios.put(url, data, {
-                  headers: { 'Authorization': `Bearer ${this.token}` }
+                headers: { 'Authorization': `Bearer ${this.token}` }
               });
              return response.data;
          } catch (error) {
