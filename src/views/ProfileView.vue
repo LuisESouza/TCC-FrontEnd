@@ -47,7 +47,7 @@ const toggleEdit = () => {
 const submit = async () => {
   try {
     //const url = "http://localhost:3000/api/dicefit/perfil/update";
-    const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil"
+    const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil/update"
     const api = new apiService();
     await api.apiPut(url, {
       altura: formData.value.altura,
