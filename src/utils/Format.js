@@ -17,6 +17,22 @@ class Format {
         if (isNaN(pesoNum)) return '';
         return `${Math.floor(pesoNum)}`;
     }
+
+    formatTime(timeValue){
+        if (!timeValue) return '';
+  
+        if (typeof timeValue === 'string') {
+          return timeValue; 
+        }
+      
+        if (timeValue.HH && timeValue.mm) {
+          const hours = timeValue.HH.padStart(2, '0');
+          const minutes = timeValue.mm.padStart(2, '0');
+          return `${hours}:${minutes}`;
+        }
+        
+        return '';
+    }
 }
 
 export default Format;

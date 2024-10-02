@@ -1,5 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import Timepicker from 'vue3-timepicker';
+import 'vue3-timepicker/dist/VueTimepicker.css';
 import Footer from '@/components/Footer.vue';
 import NavInfo from '@/components/NavInfo.vue';
 import Inputs from '@/components/utils/Inputs.vue';
@@ -14,7 +16,11 @@ const formData = ref({
     altura: '',
     peso: '',
     objetivo: '',
-    cpf: ''
+    cpf: '',
+    data_treino_inicio: '',
+    data_treino_fim: '',
+    hora_treino_inicio: '',
+    hora_treino_fim: '',
 });
 const isEditing = ref(false);
 
@@ -24,7 +30,7 @@ const loadProfile = async () => {
         const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil";
         const api = new apiService();
         const response = await api.apiGet(url);
-        formData.value = response;
+        formData.value = response
     } catch (error) {
         console.log(error);
     }
@@ -39,19 +45,22 @@ const toggleEdit = () => {
 };
 
 const submit = async () => {
-    try {
-        //const url = "http://localhost:3000/api/dicefit/perfil/update"
-        const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil/update";
-        const api = new apiService();
-        await api.apiPut(url, {
-            altura: formData.value.altura,
-            peso: formData.value.peso,
-            objetivo: formData.value.objetivo,
-        });
-        isEditing.value = false;
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    const url = "http://localhost:3000/api/dicefit/perfil/update";
+    const api = new apiService();
+    await api.apiPut(url, {
+      altura: formData.value.altura,
+      peso: formData.value.peso,
+      objetivo: formData.value.objetivo,
+      data_treino_inicio: formData.value.data_treino_inicio,
+      data_treino_fim: formData.value.data_treino_fim,
+      hora_treino_inicio: formData.value.hora_treino_inicio,
+      hora_treino_fim: formData.value.hora_treino_fim,
+    });
+    isEditing.value = false;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 onMounted(() => {
@@ -115,41 +124,62 @@ onMounted(() => {
                                     <span style="margin-right: 240px;">Dias de treino:</span>
                                     <b-dropdown 
                                         id="dropdown-1" 
-                                        :text="formData.diaTreinoInicio || 'Dia inicial'" 
+                                        :text="formData.data_treino_inicio || 'Dia inicial'" 
                                         variant="outline-secondary" 
                                         :disabled="!isEditing" 
                                         style="height: 56px;">
-                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Segunda'">Segunda</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Terca'">Terça</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Quarta'">Quarta</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Quinta'">Quinta</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Sexta'">Sexta</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Sabado'">Sábado</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoInicio = 'Domingo'">Domingo</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_inicio = 'Segunda'">Segunda</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_inicio = 'Terca'">Terça</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_inicio = 'Quarta'">Quarta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_inicio = 'Quinta'">Quinta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_inicio = 'Sexta'">Sexta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_inicio = 'Sabado'">Sábado</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_inicio = 'Domingo'">Domingo</b-dropdown-item>
                                     </b-dropdown>
 
                                     <span class="m-3">Até</span>
                                     <!-- Dropdown para o dia final -->
                                     <b-dropdown 
                                         id="dropdown-2" 
-                                        :text="formData.diaTreinoFinal || 'Dia final'" 
+                                        :text="formData.data_treino_fim || 'Dia final'" 
                                         variant="outline-secondary" 
                                         :disabled="!isEditing" 
                                         style="height: 56px;">
-                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Segunda'">Segunda</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Terca'">Terça</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Quarta'">Quarta</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Quinta'">Quinta</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Sexta'">Sexta</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Sabado'">Sábado</b-dropdown-item>
-                                        <b-dropdown-item @click="formData.diaTreinoFinal = 'Domingo'">Domingo</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_fim = 'Segunda'">Segunda</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_fim = 'Terca'">Terça</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_fim = 'Quarta'">Quarta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_fim = 'Quinta'">Quinta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_fim = 'Sexta'">Sexta</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_fim = 'Sabado'">Sábado</b-dropdown-item>
+                                        <b-dropdown-item @click="formData.data_treino_fim = 'Domingo'">Domingo</b-dropdown-item>
                                     </b-dropdown>
                                 </div>
                             </div>
 
-                            <!-- Horarios -->
-                            <div>
-
+                            <!-- TimePicker -->
+                            <div class="d-flex gap-2 mb-2">
+                                <div class="flex-fill">
+                                    <span>Horário de início:</span>
+                                    <Timepicker 
+                                    v-show="isEditing"
+                                    v-model="formData.hora_treino_inicio" 
+                                    format="HH:mm" 
+                                    :disabled="!isEditing" 
+                                    @update:modelValue="val => formData.hora_treino_inicio = formatInstance.formatTime(val)" 
+                                    />
+                                    <Inputs :value="formData.hora_treino_inicio" disabled="true" v-show="!isEditing"/>
+                                </div>
+                                <div class="flex-fill">
+                                    <span>Horário de fim:</span>
+                                    <Timepicker 
+                                    v-show="isEditing"
+                                    v-model="formData.hora_treino_fim" 
+                                    format="HH:mm" 
+                                    :disabled="!isEditing"
+                                    @update:modelValue="val => formData.hora_treino_fim = formatInstance.formatTime(val)"                              
+                                    />
+                                    <Inputs :value="formData.hora_treino_fim" disabled="true" v-show="!isEditing"/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -167,9 +197,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-    .avatar-container{
-        text-align: center;
-    }
     .button-group {
         display: flex;
         justify-content: space-between;
