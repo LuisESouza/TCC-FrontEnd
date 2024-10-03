@@ -5,8 +5,6 @@
     import Buttons from '../components/utils/Buttons.vue';
     import Inputs from '../components/utils/Inputs.vue'
     import apiService from '@/stores/services/apiService';
-    
-
     const authStore = useAuthStore();
     const router = useRouter();
     const formData = ref({
@@ -16,9 +14,7 @@
         senha: '',
     })
     const Submit = async () => {
-    //const apiUrl = "http://localhost:3000/api/dicefit/registro";
-    const apiUrl = "https://tcc-backend-smx9.onrender.com/api/dicefit/registro";
-    
+    const apiUrl = import.meta.env.VITE_URL_REGISTER;
     const api = new apiService();
     try {
         const response = await api.apiPost(apiUrl, formData.value);      

@@ -13,13 +13,11 @@
     });
     const router = useRouter();
     const Submit = async () => {
-        //const apiUrl = "http://localhost:3000/api/dicefit/login";
-        const apiUrl = "https://tcc-backend-smx9.onrender.com/api/dicefit/login";
+        const apiUrl = import.meta.env.VITE_URL_LOGIN;
         const api = new apiService();
         try {
             const response = await api.apiPost(apiUrl, formData.value);
             authStore.setToken(response.token);
-            // alert('Usuario logado');
             router.push('/home');
         } catch (error) {
             alert("Erro Login: " + error.message);

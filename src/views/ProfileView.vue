@@ -21,13 +21,13 @@ const formData = ref({
     data_treino_fim: '',
     hora_treino_inicio: '',
     hora_treino_fim: '',
+    senha: '',
 });
 const isEditing = ref(false);
 
 const loadProfile = async () => {
     try {
-        //const url = "http://localhost:3000/api/dicefit/perfil"
-        const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil";
+        const url = import.meta.env.VITE_URL_LOAD_PROFILE;
         const api = new apiService();
         const response = await api.apiGet(url);
         formData.value = response
@@ -46,8 +46,8 @@ const toggleEdit = () => {
 
 const submit = async () => {
   try {
-    //const url = "http://localhost:3000/api/dicefit/perfil/update";
-    const url = "https://tcc-backend-smx9.onrender.com/api/dicefit/perfil/update"
+    const url = import.meta.env.VITE_URL_UPDATE_PROFILE;
+    const urlResetPass = import.meta.env.VITE_URL_UPDATE_PASSWORD
     const api = new apiService();
     await api.apiPut(url, {
       altura: formData.value.altura,
@@ -57,6 +57,9 @@ const submit = async () => {
       data_treino_fim: formData.value.data_treino_fim,
       hora_treino_inicio: formData.value.hora_treino_inicio,
       hora_treino_fim: formData.value.hora_treino_fim,
+    }), api.apiPut(urlResetPass, {
+        email: formData.value.email,
+        senha: formData.value.senha
     });
     isEditing.value = false;
   } catch (error) {
@@ -91,10 +94,17 @@ onMounted(() => {
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form-group mb-2">
-                                <span>CPF:</span>
-                                <Inputs class="form-control" placeholder="CPF" :value="formatInstance.formatCPF(formData.cpf)" disabled="true"/>
+                            <div class="d-flex gap-2 mb-2">
+                                <div class="flex-fill">
+                                    <span>CPF:</span>
+                                    <Inputs class="form-control" placeholder="CPF" :value="formatInstance.formatCPF(formData.cpf)" disabled="true"/>
+                                </div>
+                                <div class="flex-fill">
+                                    <span>Senha:</span>
+                                    <Inputs class="form-control" placeholder="Mudar senha" typeInput="password" v-model="formData.senha" :disabled="!isEditing"/>
+                                </div>
                             </div>
+                            
                             <div class="d-flex gap-2 mb-2">
                                 <div class="flex-fill">
                                     <span>Altura:</span>
@@ -107,7 +117,7 @@ onMounted(() => {
                             </div>
                             <div class="d-flex gap-2 mb-2">
                                 <div class="flex-fill">
-                                    <b-dropdown id="dropdown-1" text="Objetivo" variant="outline-secondary" :disabled="!isEditing" style="height: 56px;">
+                                    <b-dropdown class="dropdown-btn" id="dropdown-1" text="Objetivo" variant="outline-secondary" :disabled="!isEditing" style="height: 45px;">
                                         <b-dropdown-item @click="formData.objetivo = 'Ganhar massa'">Ganhar massa</b-dropdown-item>
                                         <b-dropdown-item @click="formData.objetivo = 'Perder peso'">Perder peso</b-dropdown-item>
                                         <b-dropdown-item @click="formData.objetivo = 'Manter o peso'">Manter o peso</b-dropdown-item>
@@ -122,13 +132,13 @@ onMounted(() => {
                             <div class="d-flex gap-2 mb-2">
                                 <!-- Dropdown para o dia inicial -->
                                 <div class="flex-fill mt-1">
-                                    <span style="margin-right: 240px;">Dias de treino:</span>
+                                    <span style="margin-right: 200px;">Dias de treino:</span>
                                     <b-dropdown 
                                         id="dropdown-1" 
                                         :text="formData.data_treino_inicio || 'Dia inicial'" 
                                         variant="outline-secondary" 
                                         :disabled="!isEditing" 
-                                        style="height: 56px;">
+                                        style="height: 45px;">
                                         <b-dropdown-item @click="formData.data_treino_inicio = 'Segunda'">Segunda</b-dropdown-item>
                                         <b-dropdown-item @click="formData.data_treino_inicio = 'Terca'">Terça</b-dropdown-item>
                                         <b-dropdown-item @click="formData.data_treino_inicio = 'Quarta'">Quarta</b-dropdown-item>
@@ -145,7 +155,7 @@ onMounted(() => {
                                         :text="formData.data_treino_fim || 'Dia final'" 
                                         variant="outline-secondary" 
                                         :disabled="!isEditing" 
-                                        style="height: 56px;">
+                                        style="height: 45px;">
                                         <b-dropdown-item @click="formData.data_treino_fim = 'Segunda'">Segunda</b-dropdown-item>
                                         <b-dropdown-item @click="formData.data_treino_fim = 'Terca'">Terça</b-dropdown-item>
                                         <b-dropdown-item @click="formData.data_treino_fim = 'Quarta'">Quarta</b-dropdown-item>

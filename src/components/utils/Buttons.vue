@@ -12,7 +12,7 @@ const props = defineProps(["titleButton", "idButton", "typeButton"]);
 .button {
     width: 100%;
     background-color: #00875F;
-    height: 56px;
+    height: 50px;
     color: white;
     border: none;
     border-radius: 8px;

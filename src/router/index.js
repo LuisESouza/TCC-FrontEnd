@@ -47,12 +47,6 @@ const routes = [
     path: '/forgot-password',
     name: 'Recuperar Senha',
     component: () => import('../views/ForgotPassword.vue')
-  },
-  {
-    path: '/reset-password',
-    name: 'Trocar Senha',
-    component: () => import('../views/ResetPassword.vue'),
-    meta: { requiresAuth: true }
   }
 ];
 
