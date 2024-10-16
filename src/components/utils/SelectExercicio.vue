@@ -5,7 +5,7 @@ import apiService from '../../stores/services/apiService';
 const exercises = ref([]);
 
 const loadExercises = async () => {
-    const url = import.meta.env.VITE_URL_EXERCICES_TEST;
+    const url = import.meta.env.VITE_URL_EXERCICES;
     const api = new apiService();
 
     try {
