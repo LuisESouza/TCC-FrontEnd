@@ -1,35 +1,31 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import apiService from '../../stores/services/apiService';
+import { ref, defineEmits } from 'vue';
+const tipoExercicio = ref('Todos');
+const emit = defineEmits(['update-tipo']);
 
-const exercises = ref([]);
-
-const loadExercises = async () => {
-    const url = import.meta.env.VITE_URL_EXERCICES;
-    const api = new apiService();
-
-    try {
-        const response = await api.apiGet(url);
-        exercises.value = response;
-    } catch (error) {
-        console.error('Erro ao carregar exercícios:', error);
-    }
+const submit = () => {
+  emit('update-tipo', tipoExercicio.value);
 };
-
-onMounted(() => {
-    loadExercises();
-});
 </script>
 
 <template>
-    <div class="flex-fill">
-        <div class="select">
-            <select name="Exercicios" class="optionsInput">
-                <option v-for="(exercise, index) in exercises" :key="index">{{ exercise.nome_exercicio }}</option>
-            </select>
-        </div>
+  <div class="flex-fill">
+    <div class="select">
+      <select name="Exercicios" class="optionsInput" v-model="tipoExercicio" @change="submit">
+        <option value="Todos">Todos</option>
+        <option value="Peito">Peito</option>
+        <option value="Braço">Braço</option>
+        <option value="Bíceps">Bíceps</option>
+        <option value="Tríceps">Tríceps</option>
+        <option value="Ombro">Ombro</option>
+        <option value="Abdômen">Abdômen</option>
+        <option value="Costas">Costas</option>
+        <option value="Perna">Perna</option>
+      </select>
     </div>
+  </div>
 </template>
+
 
 <style scoped>
 .container {

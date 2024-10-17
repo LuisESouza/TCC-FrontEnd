@@ -18,16 +18,21 @@ class apiService {
         }
     }
     
-    async apiGet(url) {
+    async apiGet(url, params = null) {
         try {
-            const headers = { 'Authorization': `Bearer ${this.token}` };
-            const response = await axios.get(url, { headers });
+            const headers = { 'Authorization': `Bearer ${this.token}` };  
+            const config = { headers };
+            if (params) {
+                config.params = params;
+            }
+            const response = await axios.get(url, config);
             return response.data;
         } catch (error) {
             console.error('Error GET:', error);
             throw error;
         }
     }
+    
 
     async apiPut(url, data) {
         try {

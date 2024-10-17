@@ -6,5 +6,8 @@
   <RouterView />
 </template>
 
-<style>
+<style scoped>
+  body{
+    overflow: none;
+  }
 </style>
