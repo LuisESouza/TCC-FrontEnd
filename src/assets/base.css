@@ -43,5 +43,5 @@ html, body {
 }
 
 main {
-  overflow: auto;
+  overflow: none;
 }
