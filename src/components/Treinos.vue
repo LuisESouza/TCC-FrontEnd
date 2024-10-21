@@ -49,30 +49,34 @@ const totalExercisePages = (treino) => {
           </div>
         </div>
 
-        <!-- Controles de paginacao dos exercícios -->
+        <!-- Controles de paginacao dos exercicios -->
         <div class="pagination-exercises">
           <button @click="currentExercisePage--" :disabled="currentExercisePage === 1">
             <span class="arrow left"></span>
           </button>
-          <span class="page-info">Página {{ currentExercisePage }} de {{ totalExercisePages(treino) }}</span>
+          <span class="page-info">Exercícios {{ currentExercisePage }} de {{ totalExercisePages(treino) }}</span>
           <button @click="currentExercisePage++" :disabled="currentExercisePage === totalExercisePages(treino)">
             <span class="arrow right"></span>
           </button>
         </div>
 
-        <!-- Informacoes sobre o treino -->
-        <div class="data-dia">
-          <span class="time">{{ treino.hora_treino_inicio }} - {{ treino.hora_treino_fim }}</span>
-          <span class="day">{{ treino.data_treino }}</span>
+        <span class="separator"></span>
+
+        <!-- Controles de paginacao dos treinos -->
+        <div class="d-flex gap-5" style="justify-content: center;">
+          <div class="pagination-treinos">
+            <button @click="currentPage--" :disabled="currentPage === 1"><span class="arrow left"></span></button>
+          </div>
+          <div class="data-dia">
+            <span class="page-info">Treinos {{ currentPage }} de {{ totalTreinosPages }}</span>
+            <span class="time">{{ treino.hora_treino_inicio }} - {{ treino.hora_treino_fim }}</span>
+            <span class="day">{{ treino.data_treino }}</span>
+          </div>
+          <div class="pagination-treinos">
+            <button @click="currentPage++" :disabled="currentPage === totalTreinosPages"><span class="arrow right"></span></button>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Controles de paginacao dos treinos -->
-    <div class="pagination pagination-treinos" style="position: absolute; margin-top: 40rem;">
-      <button @click="currentPage--" :disabled="currentPage === 1">Anterior</button>
-      <span class="mt-2">Página {{ currentPage }} de {{ totalTreinosPages }}</span>
-      <button @click="currentPage++" :disabled="currentPage === totalTreinosPages">Próximo</button>
     </div>
   </div>
 </template>
@@ -103,15 +107,15 @@ const totalExercisePages = (treino) => {
 
 .card-training:hover {
   transform: scale(1.02);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); 
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 .training-name {
-  font-size: 1.8rem; 
+  font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 15px;
   color: #00b37e;
-  text-align: center; 
+  text-align: center;
 }
 
 .info-treino {
@@ -125,7 +129,7 @@ const totalExercisePages = (treino) => {
 
 .time {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #00b37e;
 }
@@ -135,16 +139,52 @@ const totalExercisePages = (treino) => {
   font-size: 1rem;
   color: #a8a8b3;
 }
-/* PAGINATION EXERCICIO */
+/* LINHA SEPARADORA */
+.separator {
+  display: block;
+  width: 100%;
+  background-color: #00b37e;
+  height: 2px;
+  margin: 1px 0;
+}
+
+/* PAGINATION TREINOS */
+.pagination-treinos{
+  background-color: #1c1c1e;
+  border-radius: 10px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.pagination-treinos button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.pagination-treinos button:hover {
+  transform: scale(1.1);
+}
+
+.pagination-treinos button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* PAGINATION EXERCICIOS */
 .pagination-exercises {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 2px;
   background-color: #1c1c1e;
   border-radius: 10px;
-  padding: 10px;
-  gap: 15px;
+  padding: 1px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -187,77 +227,16 @@ const totalExercisePages = (treino) => {
   transform: rotate(45deg);
 }
 
-.pagination-treinos {
-  display: flex;
-  background-color: #1c1c1e;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-  gap: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.pagination-treinos button {
-  background-color: #00b37e;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pagination-treinos button:hover:not(:disabled) {
-  background-color: #009c70;
-}
-
-.pagination-treinos button:disabled {
-  background-color: #4a4a4a;
-  cursor: not-allowed;
-}
-
-/* PAGINATION TREINO*/
-.pagination {
-  display: flex;
-  background-color: #1c1c1e;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-  gap:20px;
-  padding: 10px;
-  border-radius: 10px;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.pagination button {
-  background-color: #00b37e;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pagination button:hover:not(:disabled) {
-  background-color: #009c70;
-}
-
-.pagination button:disabled {
-  background-color: #4a4a4a;
-  cursor: not-allowed;
-}
-
 /* EXERCICIOS */
 .exercise-item {
   background-color: #1c1c1e;
   padding: 10px 15px;
-  border-radius: 10px; 
+  border-radius: 10px;
   margin-bottom: 10px;
   color: #e1e1e6;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease;
 }
 
@@ -277,7 +256,7 @@ const totalExercisePages = (treino) => {
   margin-bottom: 5px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .exercise-details {
