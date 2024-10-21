@@ -38,7 +38,7 @@ const formData = ref({
 // Salvar o formulário
 const saveForm = async () => {
     try {
-        const url = import.meta.env.VITE_URL_CREATE_TREINO_TEST;
+        const url = import.meta.env.VITE_URL_CREATE_TREINO;
         const exercisesToSave = filteredExercises.value.filter(exercise => exercise.selecionado);
         formData.value.exercicios_id = exercisesToSave.map(exercise => ({ id_exercicio: exercise.id }));
         await api.apiPost(url, formData.value);

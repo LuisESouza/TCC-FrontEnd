@@ -12,7 +12,7 @@ class loadInfo{
     }
     async loadTreino (id_cliente){
         try {
-            const url = `${import.meta.env.VITE_URL_GET_TREINO_TEST}${id_cliente}`;
+            const url = `${import.meta.env.VITE_URL_GET_TREINO}${id_cliente}`;
             const response = await api.apiGet(url);
             return response;
         } catch(error) {
