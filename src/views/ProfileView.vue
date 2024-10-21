@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+//Import components
 import Timepicker from 'vue3-timepicker';
 import 'vue3-timepicker/dist/VueTimepicker.css';
 import Footer from '@/components/Footer.vue';
@@ -7,8 +8,10 @@ import NavInfo from '@/components/NavInfo.vue';
 import Inputs from '@/components/utils/Inputs.vue';
 import Buttons from '@/components/utils/Buttons.vue';
 import apiService from '@/stores/services/apiService';
+//Import UTILS
+import loadInfo from '../utils/loadInfo';
 import Format from '@/utils/Format';
-
+const loadInfos = new loadInfo();
 const formatInstance = new Format();
 const formData = ref({
     nome_completo: '',
@@ -24,18 +27,10 @@ const formData = ref({
     senha: '',
 });
 const isEditing = ref(false);
-
 const loadProfile = async () => {
-    try {
-        const url = import.meta.env.VITE_URL_LOAD_PROFILE;
-        const api = new apiService();
-        const response = await api.apiGet(url);
-        formData.value = response
-    } catch (error) {
-        console.log(error);
-    }
+    const profileData = await loadInfos.loadProfile();
+    formData.value = { ...profileData };
 };
-
 const toggleEdit = () => {
     if (isEditing.value) {
         submit();
@@ -43,7 +38,6 @@ const toggleEdit = () => {
         isEditing.value = true;
     }
 };
-
 const submit = async () => {
   try {
     const url = import.meta.env.VITE_URL_UPDATE_PROFILE;
@@ -66,12 +60,10 @@ const submit = async () => {
     console.log(error);
   }
 };
-
 onMounted(() => {
     loadProfile();
 });
 </script>
-
 <template>
     <div class="container">
         <NavInfo />
@@ -92,7 +84,7 @@ onMounted(() => {
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="col-md-6">
                             <div class="d-flex gap-2 mb-2">
                                 <div class="flex-fill">
