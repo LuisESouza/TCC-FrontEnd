@@ -8,18 +8,25 @@ const plano = ref('free');
 
 <template>
   <div class="container">
-    <header class="header">
-      <div v-show="route.name !== 'Perfil' && route.name !== 'Recuperar Senha'" class="plan-container"> 
+    <header class="header d-flex">
+      <div v-show="route.name !== 'Perfil'" class="plan-container"> 
           <p class="plan">{{ plano }}</p>
       </div>
 
       <div class="page-info">
         <h1>{{ route.name }}</h1>
       </div>
+      <span></span>
+      
+      <div class="sign-out-container">
+        <button class="btn-sign-out" v-if="route.name !== 'Perfil'">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Sair</span>
+        </button>
+      </div>
     </header>
   </div>
 </template>
-
 
 <style scoped>
 html, body {
@@ -46,6 +53,7 @@ html, body {
   align-items: center;
   z-index: 1000;
   justify-content: space-between;
+  height: 20px;
   padding: 25px;
 }
 
@@ -62,7 +70,7 @@ html, body {
 
 .plan {
   font-size: 15px;
-  color: #23f8b8;
+  color: #00875F;
 }
 
 .page-info {
@@ -76,5 +84,30 @@ html, body {
   margin: 0;
   color: #fff;
   margin-top: 5px;
+}
+
+.sign-out-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn-sign-out {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 5px;
+  font-size: 12px;
+  background-color: transparent;
+  color: #00875F;
+  border: 1px solid #00875F;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-sign-out:hover {
+  background-color: #00875F;
+  color: white;
+  border-color: #ffffff;
 }
 </style>

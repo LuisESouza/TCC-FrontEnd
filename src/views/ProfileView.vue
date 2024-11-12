@@ -9,7 +9,7 @@ import Inputs from '@/components/utils/Inputs.vue';
 import Buttons from '@/components/utils/Buttons.vue';
 import apiService from '@/stores/services/apiService';
 //Import UTILS
-import loadInfo from '../utils/loadInfo';
+import loadInfo from '@/utils/loadInfo';
 import Format from '@/utils/Format';
 const loadInfos = new loadInfo();
 const formatInstance = new Format();

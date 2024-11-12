@@ -1,25 +1,34 @@
 <script setup>
+//Import Components
 import NavInfo from '@/components/NavInfo.vue';
 import Footer from '@/components/Footer.vue';
-import Inputs from '../components/utils/Inputs.vue';
-import Buttons from '../components/utils/Buttons.vue';
-import Treinos from '../components/Treinos.vue';
-import SelectTypeExercicio from '../components/utils/SelectTypeExercicio.vue';
-import CheckBoxExercice from '../components/utils/CheckBoxExercice.vue';
+import Inputs from '@/components/utils/Inputs.vue';
+import Buttons from '@/components/utils/Buttons.vue';
+import Treinos from '@/components/Treinos.vue';
+import SelectTypes from '@/components/utils/SelectType.vue';
+import CheckBoxExercice from '@/components/utils/CheckBoxExercice.vue';
+//
 import { ref, onMounted } from 'vue';
-import apiService from '../stores/services/apiService';
+import apiService from '@/stores/services/apiService';
 // Utils
-import loadInfo from '../utils/loadInfo';
+import loadInfo from '@/utils/loadInfo';
+import alterInfo from '@/utils/alterInfo'
+const isLoading = ref(false);
 
 const loadinfos = new loadInfo();
+const alterinfos = new alterInfo();
 const api = new apiService();
 
 const isEditing = ref(false);
 const hasTrainings = ref(false);
+
+const typesExercices = ref(['Todos','Peito','Braço','Bíceps','Tríceps','Ombro','Abdômen','Costas','Perna']);
+const typesTrainings = ref(['Terminados','Em andamento']);
+
 const filteredExercises = ref([]);
+const selectedExercises = ref([]);
 const exercises = ref([]);
 const trainings = ref([]);
-const selectedExercises = ref([]);
 
 const formData = ref({
     // Treino
@@ -28,6 +37,7 @@ const formData = ref({
     hora_treino_inicio: '',
     hora_treino_fim: '',
     data_treino: '',
+    training_stats: false,
     // Treino_Exercicio
     id_treino: '',
     repeticoes: '',
@@ -35,10 +45,10 @@ const formData = ref({
     series: '',
     exercicios_id: '',
 });
-// Salvar o formulário
+// Salvar o formulario
 const saveForm = async () => {
     try {
-        const url = import.meta.env.VITE_URL_CREATE_TREINO;
+        const url = import.meta.env.VITE_URL_CREATE_TREINO_TEST;
         const exercisesToSave = filteredExercises.value.filter(exercise => exercise.selecionado);
         formData.value.exercicios_id = exercisesToSave.map(exercise => ({ id_exercicio: exercise.id }));
         await api.apiPost(url, formData.value);
@@ -49,7 +59,7 @@ const saveForm = async () => {
         console.error("Erro ao salvar treino:", error);
     }
 };
-// Alternar seleção de exercício
+// Alternar seleo de exercicio
 const toggleSelectExercise = (exercise) => {
     const index = selectedExercises.value.findIndex(e => e.id === exercise.id);
     if (index > -1) {
@@ -60,11 +70,16 @@ const toggleSelectExercise = (exercise) => {
         exercise.selecionado = true;
     }
 };
-// Manipular mudança de tipo de exercício
+// Manipular mudanca de tipo de exercicio
 const handleTypeChange = async (type) => {
     await fetchExercises(type);
 };
-// Buscar exercícios
+// Manipular mudanca no trieno
+const handleUpdateTraining = async (treino) => {
+  await putTraining(treino.value);
+  window.location.reload(true);
+};
+// Buscar exercicios
 const fetchExercises = async (type = 'Todos') => {
     try {
         const url = `${import.meta.env.VITE_URL_EXERCICES}${type}`;
@@ -89,8 +104,13 @@ const fetchProfile = async () => {
         console.log("Faça login");
     }
 };
+//Modificar o treino e Marcar como concluido
+const putTraining = async(treino) =>{
+  await alterinfos.putTraining(treino);
+}
 // Buscar treinos
 const fetchTrainings = async () => {
+  isLoading.value = true;
     if (!formData.value.id_cliente) {
         alert("ID do cliente não definido.");
         return;
@@ -101,6 +121,8 @@ const fetchTrainings = async () => {
         hasTrainings.value = trainings.value.length > 0; 
     } catch (error) {
         console.error("Erro ao buscar treinos:", error);
+    } finally{
+      isLoading.value = false;
     }
 };
 const closeForm = async () => {
@@ -108,13 +130,11 @@ const closeForm = async () => {
     await fetchTrainings();
     hasTrainings.value = trainings.value.length > 0;
 };
-// Toggle para mostrar formulario de treino
 const toggleShow = () => {
     isEditing.value = true;
     hasTrainings.value = false;
     fetchExercises();
 };
-// Efeito ao montar o componente
 onMounted(async () => {
     await fetchProfile();
     await fetchTrainings();
@@ -124,16 +144,15 @@ onMounted(async () => {
 <template>
   <div class="container">
     <NavInfo />
-    <main class="container mt-4">
-
-      <!-- Formulário para criar treino -->
+    <main class="container">
+      <!-- Formulario para criar treino -->
       <form v-if="isEditing" class="mb-4" @submit.prevent="saveForm">
         <div class="row">
-          <!-- Seção de Exercícios -->
+          <!-- Secao de Exercicios -->
           <div class="container-exercices">
             <div class="d-flex flex-column">
               <span>Exercícios</span>
-              <SelectTypeExercicio @update-tipo="handleTypeChange" />
+              <SelectTypes @update-tipo="handleTypeChange" :tipos="typesExercices" />
             </div>
             <CheckBoxExercice :exercicios="filteredExercises" @update-selected="toggleSelectExercise" />
           </div>
@@ -171,14 +190,18 @@ onMounted(async () => {
       </form>
 
       <div v-if="!isEditing && !hasTrainings" class="d-flex flex-column align-items-center justify-content-center" style="min-height: 60vh;">
-        <img src="@/assets/pesoImg.png" alt="Peso" class="img-fluid mb-3" style="width: 125px;">
+        <img src="@/assets/img/pesoImg.png" alt="Peso" class="img-fluid mb-3" style="width: 125px;">
         <Buttons titleButton="Criar treino" id="btnMenu" @click="toggleShow" />
       </div>
 
       <div v-if="hasTrainings">
-        <Buttons titleButton="Criar treino" id="btnMenu" @click="toggleShow" />
+        <div class="d-flex gap-4">
+          <SelectTypes class="slc-type-training" :tipos="typesTrainings"/>
+          <Buttons titleButton="Criar treino" id="btnMenu" @click="toggleShow" />
+        </div>
+        
         <div class="container-treinos">
-          <Treinos :treinos="trainings"/>
+          <Treinos :training_data="true" exercisesPerPage="40" :paginationTraining="true" :treinos="trainings" @update-trainings="handleUpdateTraining"/>
         </div>
       </div>
 
@@ -188,7 +211,4 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-  .container-treinos {
-    height: 70vh;
-  }
 </style>

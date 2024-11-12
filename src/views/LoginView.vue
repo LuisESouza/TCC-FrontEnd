@@ -2,8 +2,8 @@
     import { ref } from 'vue';
     import { useRouter } from 'vue-router';
     import { useAuthStore } from '@/stores/authStore.js';
-    import Buttons from '../components/utils/Buttons.vue';
-    import Inputs from '../components/utils/Inputs.vue';
+    import Buttons from '@/components/utils/Buttons.vue';
+    import Inputs from '@/components/utils/Inputs.vue';
     import apiService from '@/stores/services/apiService';
 
     const authStore = useAuthStore();
@@ -31,7 +31,7 @@
       <main class="content">
         <div class="header">
             <div class="title-header">
-                <img class="imgPeso" src="../assets/pesoImg.png" alt="pinto">
+                <img class="imgPeso" src="../assets/img/pesoImg.png" alt="pinto">
                 <h1>Dice Fit</h1>
             </div>
             <p>Treine sua mente e o seu corpo</p>
@@ -71,7 +71,7 @@
         align-items: center;
         background-image: 
             linear-gradient(to top, #121214, #00000069), 
-            url('../assets/personaImg.png');
+            url('../assets/img/personaImg.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

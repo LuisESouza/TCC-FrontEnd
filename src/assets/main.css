@@ -1,4 +1,5 @@
-@import './base.css';
+@import './css/base.css';
+@import './css/Treinos.css';
 
 #app {
   max-width: 1280px;
@@ -7,7 +8,7 @@
   padding: 0rem;
   font-weight: normal;
   font-family: Roboto;
-  overflow: none;
+  overflow: hidden;
 }
 .title-header {
   display: flex;
@@ -20,4 +21,10 @@
 .imgPeso {
   height: 40px;
   display: block;
+}
+.separator {
+  display: block;
+  width: 100%;
+  background-color: #00b37e;
+  height: 1px;
 }

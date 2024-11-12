@@ -1,47 +1,45 @@
 <script setup>
-import { ref, defineEmits } from 'vue';
-const tipoExercicio = ref('Todos');
+import { ref, defineEmits, onMounted } from 'vue';
+
+const tipoData = ref('');
 const emit = defineEmits(['update-tipo']);
+const props = defineProps({
+  tipos: Array
+});
+const types = ref(props.tipos || []);
+const setDefaultTipoData = () => {
+  if (types.value.length > 0) {
+    tipoData.value = types.value[0];
+  }
+}
 
 const submit = () => {
-  emit('update-tipo', tipoExercicio.value);
+  emit('update-tipo', tipoData.value);
 };
+
+onMounted(async () => {
+  setDefaultTipoData();
+});
 </script>
 
 <template>
   <div class="flex-fill">
     <div class="select">
-      <select name="Exercicios" class="optionsInput" v-model="tipoExercicio" @change="submit">
-        <option value="Todos">Todos</option>
-        <option value="Peito">Peito</option>
-        <option value="Braço">Braço</option>
-        <option value="Bíceps">Bíceps</option>
-        <option value="Tríceps">Tríceps</option>
-        <option value="Ombro">Ombro</option>
-        <option value="Abdômen">Abdômen</option>
-        <option value="Costas">Costas</option>
-        <option value="Perna">Perna</option>
+      <select name="Exercicios" class="optionsInput" v-model="tipoData" @change="submit">
+        <option v-for="tipo in types" :key="tipo" :value="tipo">{{ tipo }}</option>
       </select>
     </div>
   </div>
 </template>
 
-
 <style scoped>
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #1a1a1d;
-}
 .select {
     width: 100%;
     max-width: 400px;
 }
 .optionsInput {
     width: 100%;
-    height: 55px;
+    height: 50px;
     padding: 0 15px;
     border: 1px solid #323238;
     border-radius: 4px;
