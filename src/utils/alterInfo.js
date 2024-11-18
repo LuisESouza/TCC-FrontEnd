@@ -4,7 +4,7 @@ const api = new apiService();
 class alterInfo {
     constructor() {}
 
-    async putTraining(treino) {
+    async putTrainingStats(treino) {
         try {
             const url = import.meta.env.VITE_URL_PUT_STATS_TREINO;
             await api.apiPut(url, { 
@@ -12,6 +12,18 @@ class alterInfo {
                 training_stats: treino.training_stats 
             });
         } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async putTrainingExercicios(treinoExercicio){
+        try{
+            const url = import.meta.env.VITE_URL_PUT_TREINO;
+            await api.apiPut(url, {
+                
+            });
+        }catch(error){
             console.log(error);
             throw error;
         }
@@ -28,6 +40,7 @@ class alterInfo {
             return response;
         }catch(error){
             console.log(error);
+            throw error;
         }
     }
 }

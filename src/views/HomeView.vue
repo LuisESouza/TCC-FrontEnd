@@ -66,7 +66,7 @@ const fetchTrainings = async (id_user) => {
 const handleUpdateTraining = async (treino) => {
     try {
         treinoIdParaAvaliar.value = treino.value.id;
-        await alterinfo.putTraining(treino.value);
+        await alterinfo.putTrainingStats(treino.value);
         showRating.value = true;
     } catch (error) {
         console.log(error);

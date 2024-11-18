@@ -7,7 +7,6 @@ const maxRating = 5;
 const submitRating = () => {
     emit("feed-back-emit", rating);
 }
-
 </script>
 
 <template>
