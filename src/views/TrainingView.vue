@@ -4,7 +4,7 @@ import NavInfo from '@/components/NavInfo.vue';
 import Footer from '@/components/Footer.vue';
 import Inputs from '@/components/utils/Inputs.vue';
 import Buttons from '@/components/utils/Buttons.vue';
-import Treinos from '@/components/Treinos.vue';
+import Treinos from '@/components/training/Treinos.vue';
 import SelectTypes from '@/components/utils/SelectType.vue';
 import CheckBoxExercice from '@/components/utils/CheckBoxExercice.vue';
 //

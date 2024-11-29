@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, defineEmits, defineProps } from 'vue';
-import apiService from '../stores/services/apiService';
+import apiService from '../../stores/services/apiService';
 const emit = defineEmits(['update-trainings']);
 const api = new apiService();
 const props = defineProps({
@@ -125,7 +125,7 @@ props.treinos.forEach((treino) => {
     <div class="card-training" v-for="(treino, index) in paginatedTreinos" :key="index">
       <div class="d-flex gap-3">
         <div v-if="props.paginationTraining" style="width: 100%;">
-          <!-- Editar os treino criar um menu para isto -->
+          <!-- Editar os treino : terminar-->
           <div class="d-flex justify-content-between align-items-center">
             <span class="training-name">{{ treino.nome_treino }} </span>
             <button class="btn-edit" @click="console.log(`Id do treino: ${treino.id}`)">Editar <i class="fas fa-dumbbell" style="color: #00875F;"/></button>

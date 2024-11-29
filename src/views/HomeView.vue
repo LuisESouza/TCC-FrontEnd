@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 //components
 import Footer from '@/components/Footer.vue';
-import Treinos from '@/components/Treinos.vue';
+import Treinos from '@/components/training/Treinos.vue';
 import NavInfo from '@/components/NavInfo.vue';
 import Buttons from '@/components/utils/Buttons.vue';
 import apexchart from '@/components/ApexChart.vue';
